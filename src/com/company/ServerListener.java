@@ -10,9 +10,11 @@ public class ServerListener extends Thread{
 
     private BufferedReader reader;
     String messageFromServer;
+    String login;
 
-    public ServerListener (BufferedReader reader){
+    public ServerListener (BufferedReader reader, String login){
         this.reader = reader;
+        this.login = login;
         start();
 
 
@@ -25,6 +27,7 @@ public class ServerListener extends Thread{
 
             try {
                 messageFromServer = reader.readLine();
+                if (messageFromServer.startsWith(ChatClient.login + ":")) messageFromServer = null;
                 if (messageFromServer != null) {
                     System.out.println(messageFromServer);
                 }

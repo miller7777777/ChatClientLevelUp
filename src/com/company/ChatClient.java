@@ -20,6 +20,7 @@ public class ChatClient {
     PrintWriter writer;
     Scanner scanner;
     String messageToServer;
+    static String login;
     private ServerListener listener;
 
     public void connect(){
@@ -31,7 +32,7 @@ public class ChatClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        listener = new ServerListener(reader);
+        listener = new ServerListener(reader, login);
         consoleReader();
 
     }
@@ -39,6 +40,12 @@ public class ChatClient {
     private void consoleReader(){
         //считываем сообщения с консоли и отправляем на сервер
         scanner = new Scanner(System.in);
+
+        login = scanner.nextLine();
+        writer.println(login);
+        writer.flush();
+
+
 
         try {
             while (true){
